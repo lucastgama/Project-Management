@@ -10,6 +10,7 @@ const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
 /* Route imports */
+const projectRoutes_1 = __importDefault(require("./routes/projectRoutes"));
 /* Coniguratin */
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -21,9 +22,10 @@ app.use(body_parser_1.default.json());
 app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use((0, cors_1.default)());
 /* Routes */
-app.get('/', (req, res) => {
-    res.send('Hello World');
+app.get("/", (req, res) => {
+    res.send("Hello World");
 });
+app.use("/projects", projectRoutes_1.default);
 /* Server */
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

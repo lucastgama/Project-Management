@@ -5,6 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 /* Route imports */
+import projectRoutes from "./routes/projectRoutes";
 
 /* Coniguratin */
 
@@ -19,9 +20,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 /* Routes */
-app.get('/',(req,res)=>{
-    res.send('Hello World')
-})
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
+app.use("/projects", projectRoutes);
 
 /* Server */
 const PORT = process.env.PORT || 3000;
