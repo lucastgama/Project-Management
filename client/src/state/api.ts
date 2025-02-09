@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export interface Project {
   id: number;
@@ -61,6 +61,19 @@ export interface Task {
   attachment?: Attachment[];
 }
 
+export interface Team {
+  teamId: number;
+  teamName: string;
+  productOwnerUserId?: number;
+  projectManagerUserId?: number;
+}
+
+export interface SearchResults {
+  tasks?: Task[];
+  projects?: Project[];
+  users?: User[];
+}
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
@@ -91,7 +104,7 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-    getTasks: build.query<Task[], void>({
+    getTasks: build.query<Task[], { projectId: number }>({
       query: (projectId) => `tasks?/projectId=${projectId}`,
       providesTags: (result) =>
         result
@@ -108,35 +121,19 @@ export const api = createApi({
         body: task,
       }),
     }),
-    updateTask: build.mutation<Task, Partial<Task>>({
-      query: (task) => ({
-        url: `tasks/${task.id}`,
+    updateTask: build.mutation<Task, { taskId: number; status: string }>({
+      query: ({ taskId, status }) => ({
+        url: `tasks/${taskId}/status`,
         method: "PATCH",
-        body: task,
+        body: status,
       }),
+      invalidatesTags: (result, error, { taskId }) => [
+        { type: "Tasks", id: taskId },
+      ],
     }),
     deleteTask: build.mutation<void, number>({
       query: (taskId) => ({
         url: `tasks/${taskId}`,
-        method: "DELETE",
-      }),
-    }),
-    getAttachments: build.query<Attachment[], void>({
-      query: () => "attachments",
-    }),
-    getAttachment: build.query<Attachment, number>({
-      query: (attachmentId) => `attachments/${attachmentId}`,
-    }),
-    createAttachment: build.mutation<Attachment, Partial<Attachment>>({
-      query: (attachment) => ({
-        url: "attachments",
-        method: "POST",
-        body: attachment,
-      }),
-    }),
-    deleteAttachment: build.mutation<void, number>({
-      query: (attachmentId) => ({
-        url: `attachments/${attachmentId}`,
         method: "DELETE",
       }),
     }),
@@ -149,4 +146,15 @@ export const api = createApi({
   }),
 });
 
-export const { useGetProjectsQuery, useCreateProjectMutation } = api;
+export const {
+  useGetProjectsQuery,
+  useCreateProjectMutation,
+  useGetTasksQuery,
+  useCreateTaskMutation,
+  // useUpdateTaskStatusMutation,
+  // useSearchQuery,
+  useGetUsersQuery,
+  // useGetTeamsQuery,
+  // useGetTasksByUserQuery,
+  // useGetAuthUserQuery,
+} = api;

@@ -4,8 +4,13 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+
 /* Route imports */
 import projectRoutes from "./routes/projectRoutes";
+import taskRoutes from "./routes/taskRoutes";
+import searchRoutes from "./routes/searchRoutes";
+import userRoutes from "./routes/userRoutes";
+import teamRoutes from "./routes/teamRoutes";
 
 /* Coniguratin */
 
@@ -21,10 +26,14 @@ app.use(cors());
 
 /* Routes */
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Hello there!");
 });
 
 app.use("/projects", projectRoutes);
+app.use("/tasks", taskRoutes);
+app.use("/search", searchRoutes);
+app.use("/users", userRoutes);
+app.use("/teams", teamRoutes);
 
 /* Server */
 const PORT = process.env.PORT || 3000;
