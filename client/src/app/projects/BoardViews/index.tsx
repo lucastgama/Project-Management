@@ -76,8 +76,6 @@ const TaskColumn = ({
     Completed: "#000000",
   };
 
-  console.log(tasks);
-
   return (
     <div
       ref={(instance) => {
@@ -145,7 +143,7 @@ const Task = ({ task }: TaskProps) => {
     ? format(new Date(task.dueDate), "P")
     : "";
 
-  const numberOfComments = (task.comments && task.comments.length) || 0;
+  const numberOfComments = (task.comment && task.comment.length) || 0;
 
   const PriorityTag = ({ priority }: { priority: TaskType["priority"] }) => (
     <div
@@ -174,10 +172,10 @@ const Task = ({ task }: TaskProps) => {
         isDragging ? "opacity-50" : "opacity-100"
       }`}
     >
-      {task.attachments && task.attachments.length > 0 && (
+      {task.attachment && task.attachment.length > 0 && (
         <Image
           src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Humpback_Whales_-_South_Bank.jpg"
-          alt={task.attachments[0].fileName}
+          alt={task.attachment[0].fileName}
           width={400}
           height={200}
           className="h-auto w-full rounded-t-md"
