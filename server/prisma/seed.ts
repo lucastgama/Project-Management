@@ -29,9 +29,9 @@ async function main() {
     "projectTeam.json",
     "user.json",
     "task.json",
-    "attachment.json",
     "comment.json",
     "taskAssignment.json",
+    "attachment.json",
   ];
 
   await deleteAllData(orderedFileNames);

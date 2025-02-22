@@ -43,9 +43,9 @@ function main() {
             "projectTeam.json",
             "user.json",
             "task.json",
-            "attachment.json",
             "comment.json",
             "taskAssignment.json",
+            "attachment.json",
         ];
         yield deleteAllData(orderedFileNames);
         for (const fileName of orderedFileNames) {
