@@ -172,10 +172,10 @@ const Task = ({ task }: TaskProps) => {
         isDragging ? "opacity-50" : "opacity-100"
       }`}
     >
-      {task.attachment && task.attachment.length > 0 && (
+      {task.attachments && task.attachments.length > 0 && (
         <Image
-          src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Humpback_Whales_-_South_Bank.jpg"
-          alt={task.attachment[0].fileName}
+          src={`/${task.attachments[0].fileURL}`}
+          alt={task.attachments[0].fileName}
           width={400}
           height={200}
           className="h-auto w-full rounded-t-md"
@@ -222,20 +222,21 @@ const Task = ({ task }: TaskProps) => {
 
         <div className="mt-3 flex items-center justify-between">
           <div className="flex -space-x-[6px] overflow-hidden">
-            {task.assignee && (
+            {task.assignee && task.assignee.profilePictureUrl && (
               <Image
                 key={task.assignee.userId}
-                src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Humpback_Whales_-_South_Bank.jpg"
+                src={`/${task.assignee.profilePictureUrl}`}
                 alt={task.assignee.username}
                 width={30}
                 height={30}
                 className="h-8 w-8 rounded-full border-2 border-white object-cover dark:border-dark-secondary"
               />
             )}
-            {task.author && (
+
+            {task.author && task.author.profilePictureUrl && (
               <Image
                 key={task.author.userId}
-                src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Humpback_Whales_-_South_Bank.jpg"
+                src={`/${task.author.profilePictureUrl}`}
                 alt={task.author.username}
                 width={30}
                 height={30}
