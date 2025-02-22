@@ -45,8 +45,8 @@ export interface Task {
   id: number;
   title?: string;
   description?: string;
-  status?: Priority;
-  priority?: string;
+  status?: Status;
+  priority?: Priority;
   tags?: string;
   startDate?: string;
   dueDate?: string;
@@ -125,7 +125,7 @@ export const api = createApi({
       query: ({ taskId, status }) => ({
         url: `tasks/${taskId}/status`,
         method: "PATCH",
-        body: status,
+        body: {status},
       }),
       invalidatesTags: (result, error, { taskId }) => [
         { type: "Tasks", id: taskId },
