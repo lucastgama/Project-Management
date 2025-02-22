@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import { dataGridClassNames, dataGridSxStyles } from "@/lib/utils";
 import { useGetTasksQuery } from "@/state/api";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { format } from "date-fns";
 import React from "react";
 
 type Props = {
@@ -14,12 +15,14 @@ const columns: GridColDef[] = [
   {
     field: "title",
     headerName: "Title",
-    width: 100,
+    flex: 1,
+    minWidth: 150,
   },
   {
     field: "description",
     headerName: "Description",
-    width: 200,
+    flex: 2,
+    minWidth: 200,
   },
   {
     field: "status",
@@ -45,11 +48,13 @@ const columns: GridColDef[] = [
     field: "startDate",
     headerName: "Start Date",
     width: 130,
+    renderCell: (params) => format(new Date(params.value), "P"),
   },
   {
     field: "dueDate",
     headerName: "Due Date",
     width: 130,
+    renderCell: (params) => format(new Date(params.value), "P"),
   },
   {
     field: "author",
@@ -77,7 +82,7 @@ const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
   if (error || !tasks) return <div>An error occurred while fetching tasks</div>;
 
   return (
-    <div className="h-[540px] w-full px-4 pb-8 xl:px-6">
+    <div className="flex flex-col px-4 pb-8 xl:px-6">
       <div className="pt-5">
         <Header
           name="Table"
@@ -92,12 +97,18 @@ const TableView = ({ id, setIsModalNewTaskOpen }: Props) => {
           isSmallText
         />
       </div>
-      <DataGrid
-        rows={tasks || []}
-        columns={columns}
-        className={dataGridClassNames}
-        sx={dataGridSxStyles(isDarkMode)}
-      />
+      <div className="h-[calc(100vh-200px)] flex-1">
+        <DataGrid
+          rows={tasks || []}
+          columns={columns}
+          className={dataGridClassNames}
+          sx={dataGridSxStyles(isDarkMode)}
+          hideFooterSelectedRowCount
+          disableRowSelectionOnClick
+          autoHeight={true} // esta funcionando, mas fala que esta deprecated
+          scrollbarSize={10}
+        />
+      </div>
     </div>
   );
 };
