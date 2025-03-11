@@ -77,7 +77,7 @@ export interface SearchResults {
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL }),
   reducerPath: "api",
-  tagTypes: ["Project", "Tasks", "attachments", "User"],
+  tagTypes: ["Project", "Tasks", "attachments", "User", "Teams"],
   endpoints: (build) => ({
     getProjects: build.query<Project[], void>({
       query: () => "projects",
@@ -125,7 +125,7 @@ export const api = createApi({
       query: ({ taskId, status }) => ({
         url: `tasks/${taskId}/status`,
         method: "PATCH",
-        body: {status},
+        body: { status },
       }),
       invalidatesTags: (result, error, { taskId }) => [
         { type: "Tasks", id: taskId },
@@ -137,11 +137,18 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    search: build.query<SearchResults, string>({
+      query: (query) => `search?query=${query}`,
+    }),
     getUsers: build.query<User[], void>({
       query: () => "users",
     }),
     getUser: build.query<User, number>({
       query: (userId) => `users/${userId}`,
+    }),
+    getTeams: build.query<Team[], void>({
+      query: () => "teams",
+      providesTags: ["Teams"],
     }),
   }),
 });
@@ -152,9 +159,7 @@ export const {
   useGetTasksQuery,
   useCreateTaskMutation,
   useUpdateTaskMutation,
-  // useSearchQuery,
+  useSearchQuery,
   useGetUsersQuery,
-  // useGetTeamsQuery,
-  // useGetTasksByUserQuery,
-  // useGetAuthUserQuery,
+  useGetTeamsQuery,
 } = api;
