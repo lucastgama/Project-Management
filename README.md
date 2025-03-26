@@ -61,7 +61,6 @@ O projeto foi inspirado no repositório original do professor Ed Roh:
 
 ```
 bash
-CopiarEditar
 📦 Project-Management
 ├── client    # Aplicação Frontend (Next.js)
 └── server    # API Backend (Node.js + Prisma)
@@ -83,7 +82,7 @@ CopiarEditar
 
 ```bash
 bash
-CopiarEditar
+
 git clone https://github.com/lucastgama/Project-Management.git
 
 ```
@@ -94,7 +93,7 @@ git clone https://github.com/lucastgama/Project-Management.git
 
 ```bash
 bash
-CopiarEditar
+
 cd client
 npm install
 # ou
@@ -106,7 +105,7 @@ yarn
 
 ```bash
 bash
-CopiarEditar
+
 cd server
 npm install
 # ou
@@ -121,7 +120,7 @@ yarn
 
 ```bash
 bash
-CopiarEditar
+
 npm run dev
 
 ```
@@ -132,7 +131,7 @@ Acesse: [http://localhost:3000](http://localhost:3000/)
 
 ```bash
 bash
-CopiarEditar
+
 npm run dev
 
 ```
