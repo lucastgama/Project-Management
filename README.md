@@ -137,7 +137,7 @@ npm run dev
 
 ```
 
-Servidor rodando em: http://localhost:5000
+Servidor rodando em: http://localhost:8000
 
 ---
 
