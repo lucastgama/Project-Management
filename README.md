@@ -142,6 +142,6 @@ Servidor rodando em: http://localhost:8000
 
 ## 🙋‍♂️ Autor
 
-Desenvolvido por **Lucas Tavares Gama**
+Desenvolvido por **Lucas Gama**
 
 📎 [Meu GitHub](https://github.com/lucastgama)
